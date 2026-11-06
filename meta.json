@@ -1,0 +1,1455 @@
+{
+  "project": {
+    "name": "Layer-Aware Post-Quantum Cryptography for Blockchain-Based Energy Trading",
+    "implementation_authority": "docs/student_spec(1).pdf"
+  },
+  "server_hardware": {
+    "architecture": "x86_64",
+    "cpu_model": "AMD Ryzen 7 7735HS with Radeon Graphics",
+    "physical_cores": 8,
+    "logical_cpus": 16,
+    "ram_gib": 16,
+    "ram_type": "DDR5",
+    "ram_speed_mt_s": 4800
+  },
+  "software_pins": {
+    "hyperledger_fabric": {
+      "version": "2.5.16",
+      "tag": "v2.5.16",
+      "commit": "f871cf92a026aba7b12e6f06d71ded3e6e659d71",
+      "build_go": "1.26.4"
+    },
+    "fabric_ca": {
+      "version": "1.5.17",
+      "build_go": "1.25.7"
+    },
+    "fabric_samples_commit": "05edea01d4cf24dd4087bd3750c36e690dc4d6ff",
+    "hyperledger_caliper": "0.7.1",
+    "caliper_fabric_connector": "0.7.1",
+    "fabric_gateway_sdk": "1.7.1",
+    "grpc_js": "1.13.1",
+    "liboqs": {
+      "tag": "0.15.0",
+      "commit": "97f6b86b1b6d109cfd43cf276ae39c2e776aed80"
+    },
+    "liboqs_go": {
+      "tag": "v0.15.0",
+      "commit": "75451133b94a6c4be5f528eef94916ce08475f24"
+    },
+    "mininet": "2.3.0"
+  },
+  "cryptographic_parameter_sets": {
+    "ML-KEM-768": "ML-KEM-768",
+    "ML-DSA-44": "ML-DSA-44",
+    "ML-DSA-65": "ML-DSA-65",
+    "ML-DSA-87": "ML-DSA-87",
+    "Falcon-512": "Falcon-512",
+    "SPHINCS+-SHA2-128s": "SPHINCS+-SHA2-128s-simple",
+    "ECDSA-P-256": "prime256v1"
+  },
+  "e0_benchmark": {
+    "status": "server_and_android_measurements_complete_sanity_checker_unavailable_meter_pending",
+    "server_environment": {
+      "os": "Ubuntu 24.04.3 LTS",
+      "kernel": "6.14.0-37-generic",
+      "openssl_package": "3.0.13-0ubuntu3.12",
+      "go": "1.22.2"
+    },
+    "methodology": {
+      "liboqs_api": "direct library API",
+      "oqs_provider_used": false,
+      "ecdsa_backend": "OpenSSL libcrypto",
+      "ecdsa_hash": "SHA-256",
+      "ecdsa_hashing_inside_timed_region": false,
+      "signature_message": "SHA-256 of UTF-8 string pqc-energy-trading-e0-message-v1",
+      "warmup_iterations": 100,
+      "measured_iterations": 10000,
+      "gomaxprocs": 1,
+      "cpu_affinity": [
+        2,
+        3
+      ],
+      "cpu_smt_siblings": true,
+      "amd_pstate_mode": "passive",
+      "cpu_governor": "performance",
+      "cpu_frequency_khz": 3200000,
+      "cpu_boost_enabled": false,
+      "power_source": "AC",
+      "timing_unit": "milliseconds",
+      "percentile_method": "linear interpolation using rank p*(n-1)",
+      "timing_boundary": "cryptographic primitive API call"
+    },
+    "evidence": {
+      "summary": "data/e0_primitives.csv",
+      "summary_sha256": "b8656403f78a0845eceaf15df9803b4aea7282ed7960137a920773a9733b4936",
+      "raw_samples": "raw/e0/",
+      "run_log": "raw/e0/e0_server_run.log",
+      "run_log_sha256": "5a67af85eac9fdb4c0d7c53528790051a8bf875b8cd7ffca0cccfcf8014c09dd"
+    },
+    "android_campaign": {
+      "status": "complete",
+      "separate_from_server_and_meter_sbc": true,
+      "methodology_identity": "E0-Android-v3",
+      "measurement_source_commit": "2b341f2ac687bd666e65cd2a76eac874e629f205",
+      "results_commit": "83538d578ff1d0670c9478fe2ba6bdf7f3560d8f",
+      "evidence_archive_commit": "b4a4a6d541eccdd43ae5199a7340c3b36f0c1d22",
+      "device": {
+        "manufacturer": "Xiaomi",
+        "model_name": "Redmi Note 9",
+        "model": "M2003J15SC",
+        "soc": "MediaTek Helio G85",
+        "android": "12",
+        "architecture": "aarch64",
+        "rooted": false,
+        "selected_cpu": 7,
+        "selected_core": "Cortex-A75",
+        "selected_cpu_max_mhz": 2000,
+        "cpu_governor": "schedutil",
+        "frequency_locked": false
+      },
+      "software": {
+        "go": "1.27.3",
+        "liboqs": "0.15.0",
+        "liboqs_go": "v0.15.0"
+      },
+      "execution": {
+        "registered_condition_count": 21,
+        "accepted_timings_per_condition": 1000,
+        "accepted_timings_total": 21000,
+        "accepted_block_count": 47,
+        "rejected_attempt_count": 0,
+        "warmup_operations_per_attempt": 100,
+        "benchmark_cpu_affinity": 7,
+        "frequency_sampler_cpu_affinity": 0,
+        "gomaxprocs": 1,
+        "timing_boundary": "cryptographic primitive API call only",
+        "stabilization_workload": "same primitive, uninterrupted, unmeasured",
+        "stabilization_minimum_seconds": 3,
+        "stabilization_consecutive_frequency_observations": 5,
+        "stabilization_rule": "max_frequency * 100 <= min_frequency * 102",
+        "frequency_sampling_interval_ms": 100,
+        "short_condition_monitoring_target_seconds": 6,
+        "short_condition_monitoring_target_status": "engineering parameter; not supervisor-specified",
+        "maximum_measurement_block_seconds": 60,
+        "frequency_ab_windows": "median of initial and final registered 10% observation windows",
+        "frequency_rejection_rule": "reject iff B < 0.9 * A; exactly 10% drop is accepted",
+        "normal_interblock_cooldown_seconds": 180,
+        "rejection_cooldown_escalation_seconds": [
+          180,
+          360,
+          720
+        ],
+        "aggregation": "accepted blocks until exactly 1000 genuine primitive timings per condition; rejected attempts are retained and contribute zero timings",
+        "percentile_method": "linear interpolation using rank p*(n-1)"
+      },
+      "telemetry": {
+        "frequency_source": "/sys/devices/system/cpu/cpu7/cpufreq/scaling_cur_freq",
+        "frequency_transport": "on-device sampler retrieved through ADB after each block",
+        "temperature_source": "CPU mType=0 values in Current temperatures from HAL",
+        "temperature_sampling": "immediately before and after each measurement block",
+        "temp_c_max_definition": "maximum available CPU HAL observation before or after accepted blocks; not a continuously sampled peak",
+        "frequency_gate_interpretation": "detects sustained frequency variation; does not by itself prove thermal throttling",
+        "direct_energy_measurement": false
+      },
+      "provenance": {
+        "campaign_path": "raw/e0/android_campaign_v3/",
+        "campaign_schema": "pqc-energy-trading.e0-android-campaign.v1",
+        "block_schema": "pqc-energy-trading.e0-android-block-attempt.v3",
+        "campaign_manifest": "raw/e0/android_campaign_v3/campaign.json",
+        "campaign_manifest_sha256": "c75bd63cc676c0333c6c7319f4858dd8ed738b2a703c78f41b130e49e7d0e27b",
+        "campaign_state": "raw/e0/android_campaign_v3/campaign_state.json",
+        "campaign_state_sha256": "6d390c6a7f84cd7cf7acfcafc3daa0604f8bb683445235a498053536eeda1517",
+        "campaign_integrity": "PASS",
+        "campaign_file_count": 519,
+        "block_manifest_count": 47,
+        "benchmark_sha256": "01598974d7304c62f25d9c8f9bb35c42499f27cd75cfde650527c8407ff1145c",
+        "frequency_sampler_sha256": "74d753aa0cd5cfb7373ff23b130323f270c5fbbba165a0e873caeda23956ea41",
+        "source_file_hashes": "recorded in the campaign manifest"
+      },
+      "outputs": {
+        "aggregate": "data/e0_android.csv",
+        "aggregate_sha256": "6aa1b3631c2cc8d84b6fb5e914660a0986b2cf3bc02c3448aa7a6f2718693500",
+        "aggregate_schema": "device,scheme,operation,n_iter,median_ms,p95_ms,p99_ms,stddev_ms,freq_mhz_median,freq_mhz_p05,freq_mhz_p95,temp_c_max",
+        "data_rows": 21,
+        "frequency_comparison": "data/e0_android_comparison.csv",
+        "frequency_comparison_sha256": "5a9a12d64fed7b495979a193b67157f329422a320021d3399863ad49fff2213e",
+        "frequency_comparison_schema": "device,platform,scheme,operation,freq_mhz_median,freq_mhz_p05,freq_mhz_p95,reference_scheme,reference_operation,freq_median_difference_percent,comparison_basis",
+        "frequency_comparison_scope": "like signature operations relative to ECDSA-P-256; KEM operations have no fabricated ECDSA comparison",
+        "raw_timing_pattern": "raw/e0/e0_android_<scheme>_<operation>.csv.gz",
+        "raw_timing_file_count": 21,
+        "raw_timing_schema": "iteration,elapsed_ms",
+        "raw_timings_per_file": 1000
+      }
+    }
+  },
+  "meter": {
+    "status": "pending",
+    "hardware": null,
+    "soc": null,
+    "clock": null,
+    "ram": null,
+    "os": null,
+    "power_instrument": null
+  },
+  "dataset": {
+    "status": "complete",
+    "name": "Open Power System Data - Household Data",
+    "version": "2020-04-15",
+    "primary_source": "CoSSMic",
+    "license": "Creative Commons Attribution-International",
+    "upstream": {
+      "filename": "household_data_15min_singleindex.csv",
+      "sha256": "eca7dee5ac6e53373cd0209bc05ba3383cd860bfa5d5e995f74fa78db8857c58",
+      "repository_retention": "not committed; canonical prepared trace and provenance are retained"
+    },
+    "e7_trace": {
+      "status": "frozen",
+      "path": "env/e7/trace/opsd_household_15min_e7.csv",
+      "provenance_path": "env/e7/trace/provenance.json",
+      "selected_household": "residential3",
+      "selected_source_columns": {
+        "timestamp": "utc_timestamp",
+        "photovoltaic_generation": "DE_KN_residential3_pv",
+        "grid_import": "DE_KN_residential3_grid_import",
+        "grid_export": "DE_KN_residential3_grid_export",
+        "interpolation_marker": "interpolated"
+      },
+      "source_cumulative_time_range": {
+        "start": "2016-02-28T17:15:00+00:00",
+        "end": "2016-03-11T04:15:00+00:00"
+      },
+      "prepared_interval_time_range": {
+        "start": "2016-02-28T17:30:00+00:00",
+        "end": "2016-03-11T04:15:00+00:00"
+      },
+      "source_rows": 1101,
+      "prepared_rows": 1100,
+      "warmup_rows": 100,
+      "measured_rows": 1000,
+      "transformation": "first differences of consecutive 15-minute cumulative energy meter readings; prepared timestamp is the later/end timestamp",
+      "interpolation_policy": "selected PV, grid-import, and grid-export feeds must be non-interpolated at both interval endpoints; selected window count is zero",
+      "counter_reset_policy": "counters must be monotonic nondecreasing; any decrease resets the candidate window without absolute value, clamping, or tolerance",
+      "prepared_trace_sha256": "7e472c032317a7e8f0af587782238cab48f22ddc50f74200cff65e9681f8bd1c",
+      "selection_rationale": "Among technically eligible residential3, residential4, and residential6 traces, residential3's earliest qualifying window contains the most net-surplus intervals while retaining net-deficit intervals (214 surplus, 886 deficit, 0 zero), providing stronger coverage of both prosumer settlement states; this is not a claim of statistical representativeness of all households."
+    }
+  },
+  "e1_benchmark": {
+    "status": "complete",
+    "server_environment": {
+      "os": "Ubuntu 24.04.3 LTS",
+      "kernel": "7.0.0-30-generic",
+      "docker": "29.1.3",
+      "docker_compose": "2.40.3+ds1-0ubuntu1~24.04.1",
+      "openssl": "3.0.13",
+      "node": "22.23.2",
+      "npm": "12.0.2"
+    },
+    "topology": {
+      "ordering_service": "etcdraft",
+      "orderer_count": 1,
+      "organizations": 2,
+      "peers_per_organization": 2,
+      "channel": "energychannel",
+      "chaincode": "simplekv",
+      "operation": "Set(key,value)"
+    },
+    "installed_images_at_metadata_update": {
+      "peer": "sha256:3d71da5ac46b179c981527b69ac832cb7905bd3bc428ee6b2620bc580e3c944e",
+      "orderer": "sha256:4ec6f0287e3fda35a874357bfe9c9f2ef8b9fbb427a42457de3b6b1b98290058",
+      "fabric_pq_patch_sha256": "5268f9f67656233d7e7b9ac7c449f20f05fc8a8257fb91eb0de63698a72d1293"
+    },
+    "superseded_installed_images": [
+      {
+        "peer": "sha256:6fe74f12e91ab73a07b13d4a7d2954df8a2ad5a6e00ea2665cfffed7f34f5448",
+        "orderer": "sha256:b56ec95ae9168725b8c8e1dc4bc4126f30f2b661e3dc99dd72225dc87b1f3d1f",
+        "fabric_pq_patch_sha256": "2eeee5582fabd90bb9e675e98bce3daf94a087d2d6848ccfa720f7216e23550f"
+      }
+    ],
+    "cpu_control": {
+      "fixed_cpu_set": "2-15",
+      "caliper_affinity": "taskset -c 2-15",
+      "fabric_and_chaincode_cpuset": "2-15",
+      "amd_pstate_mode": "passive",
+      "cpu_governor": "performance",
+      "cpu_boost_enabled": false,
+      "cpu_frequency_khz": 3201000,
+      "power_source": "AC",
+      "background_load": "low",
+      "unrelated_docker_containers": 0
+    },
+    "fabric_block_parameters": {
+      "BatchTimeout": "2s",
+      "MaxMessageCount": 500,
+      "PreferredMaxBytes_effective_bytes": 2097152,
+      "AbsoluteMaxBytes_effective_bytes": 10485760,
+      "effective_value_source": "decoded generated Fabric channel configuration"
+    },
+    "endorsement_policy": {
+      "chaincode_policy": "/Channel/Application/Endorsement",
+      "policy_type": "ImplicitMeta",
+      "rule": "MAJORITY Endorsement",
+      "organization_subpolicies": {
+        "Org1MSP": "OR('Org1MSP.peer')",
+        "Org2MSP": "OR('Org2MSP.peer')"
+      },
+      "configured_minimum_endorsements_per_tx": 2,
+      "empirical_endorsements_per_tx": 2,
+      "configtx_source": "env/fabric/e1/configtx.yaml",
+      "configtx_sha256": "87022050421db9821be46266cfe68b9789c3fe125d089e31d368a01ffe27b384",
+      "setup_source": "env/fabric/e1/setup_fabric_e1.sh",
+      "setup_sha256": "b69af762feee33e800bc26ef5af9e0a45301ba0c2172f580de6fc90b25ac2831"
+    },
+    "hybrid_pq_identity": {
+      "scope": "ECDSA X.509 membership with experimental embedded PQ public keys and liboqs peer transaction/endorsement signing and verification",
+      "experimental_oid": "1.3.6.1.3.9999.1",
+      "pq_ski": "SHA-256(raw PQ public key)",
+      "client_identity": "ECDSA",
+      "tls_identities": "ECDSA",
+      "orderer_identity": "ECDSA",
+      "not_claimed": [
+        "full post-quantum PKI",
+        "standardized post-quantum X.509",
+        "native Fabric PQ identity support"
+      ],
+      "verification_dispatch": "PQ-extension certificates import as pqPublicKey and dispatch to pqPublicKeyVerifier, which calls oqs.Signature.Verify; errors do not fall back to ECDSA.",
+      "no_fallback_regression_test": "TestPQVerifierDispatchRejectsClassicalFallback",
+      "runtime_verification": {
+        "status": "validated_functional_evidence_not_performance_measurement",
+        "trace": "one successful oqs.Signature.Verify trace from the orderer and all four peers per PQ configuration",
+        "performance_trace_state": "disabled",
+        "audits": {
+          "ML-DSA-44": {
+            "namespace": "pq-verify-v1_ml-dsa-44",
+            "raw_csv": "raw/e1/pq-verify-v1_ml-dsa-44_pq_verification_audit.csv.gz",
+            "raw_csv_sha256": "e406ed20f01c299de7ae6b786ec316e4e6904f20e07ebd2f4e6191b3968c2245",
+            "raw_log": "raw/e1/pq-verify-v1_ml-dsa-44_pq_verification_audit.log.gz",
+            "raw_log_sha256": "3983a6297e21b50be3b91214f42c0790e37d64838139311e66ca1d8813ba07bc"
+          },
+          "ML-DSA-65": {
+            "namespace": "pq-verify-v1_ml-dsa-65",
+            "raw_csv": "raw/e1/pq-verify-v1_ml-dsa-65_pq_verification_audit.csv.gz",
+            "raw_csv_sha256": "9c0a2cd794cf63985d22c6609e0a73f7f9bd7d9b09d6916a42b96ac3f68361ea",
+            "raw_log": "raw/e1/pq-verify-v1_ml-dsa-65_pq_verification_audit.log.gz",
+            "raw_log_sha256": "613ef168ffc98343a67ed8c633ad9a401b2b2875cf0061b978c773f200d84a90"
+          },
+          "SPHINCS+-SHA2-128s-simple": {
+            "namespace": "pq-verify-v1_sphincs",
+            "raw_csv": "raw/e1/pq-verify-v1_sphincs_pq_verification_audit.csv.gz",
+            "raw_csv_sha256": "54944dc0736d375854bcf24b294b4d6d2b317b0cbc0d55d307e2ddd28cf71ca8",
+            "raw_log": "raw/e1/pq-verify-v1_sphincs_pq_verification_audit.log.gz",
+            "raw_log_sha256": "00f0bd3ee5b0fd26afc3663a6b9911fe7f660cda1f24fd114c3b7ac922e73553"
+          }
+        }
+      }
+    },
+    "identity_bytes": {
+      "definition": "public key bytes only",
+      "excludes": [
+        "MSP signcert PEM bytes",
+        "certificate signature bytes",
+        "transaction signature bytes"
+      ],
+      "aggregation": "arithmetic mean of four peer public-key byte counts",
+      "dispersion_review_threshold_percent": 3.0,
+      "measurements": {
+        "ECDSA": {
+          "representation": "DER-encoded X.509 SubjectPublicKeyInfo returned by Fabric ecdsaPublicKey.Bytes()",
+          "per_peer_bytes": [
+            91,
+            91,
+            91,
+            91
+          ],
+          "mean_bytes": "91.000000",
+          "min_bytes": 91,
+          "max_bytes": 91,
+          "dispersion_percent": "0.000000",
+          "provenance": "The 91-byte value is derived and cross-checked from the DER-encoded P-256 SubjectPublicKeyInfo returned by Fabric v2.5.16 ecdsaPublicKey.Bytes() in bccsp/sw/ecdsakey.go. Four ECDSA peer certificates and their hashes are retained in raw/e1/blockutil-300_ecdsa_identity_bytes.csv.gz as supporting certificate evidence only; that file is not a public-key-byte measurement CSV."
+        },
+        "ML-DSA-44": {
+          "representation": "raw liboqs public key returned by pqPublicKey.Bytes()",
+          "per_peer_bytes": [
+            1312,
+            1312,
+            1312,
+            1312
+          ],
+          "mean_bytes": "1312.000000",
+          "min_bytes": 1312,
+          "max_bytes": 1312,
+          "dispersion_percent": "0.000000",
+          "generation_log": "raw/e1/identity-only-v1_ml-dsa-44_identity_generation.log.gz",
+          "generation_log_sha256": "66ce1a4e4cac4be2b39050a3f133faed0d46955e9dd2c695dc85659d83c157ca",
+          "provenance": "Four peer records in the retained identity-generation log."
+        },
+        "ML-DSA-65": {
+          "representation": "raw liboqs public key returned by pqPublicKey.Bytes()",
+          "per_peer_bytes": [
+            1952,
+            1952,
+            1952,
+            1952
+          ],
+          "mean_bytes": "1952.000000",
+          "min_bytes": 1952,
+          "max_bytes": 1952,
+          "dispersion_percent": "0.000000",
+          "generation_log": "raw/e1/identity-only-v1_ml-dsa-65_identity_generation.log.gz",
+          "generation_log_sha256": "b291d91883851a4f257611f5e1e277d979f9d2e9952b09d43a9b9cca1083e347",
+          "provenance": "Four peer records in the retained identity-generation log."
+        },
+        "SLH-DSA": {
+          "representation": "raw liboqs SPHINCS+-SHA2-128s-simple public key returned by pqPublicKey.Bytes()",
+          "per_peer_bytes": [
+            32,
+            32,
+            32,
+            32
+          ],
+          "mean_bytes": "32.000000",
+          "min_bytes": 32,
+          "max_bytes": 32,
+          "dispersion_percent": "0.000000",
+          "generation_log": "raw/e1/identity-only-v1_sphincs_identity_generation.log.gz",
+          "generation_log_sha256": "ebe8a11a5e8406adeae0b042c2ed28397fc8107507fd5494226fddc2bcda5366",
+          "provenance": "Four peer records in the retained identity-generation log."
+        }
+      }
+    },
+    "caliper": {
+      "profile_file": "env/caliper/e1/benchmark.yaml",
+      "profile_sha256": "5ae8aa973467a7828237fbc097c8e3936d5a05196de3cfd2881f550b8afd6e1a",
+      "fixed_profile": [
+        {
+          "label": "warmup",
+          "rate_tps": 50,
+          "duration_seconds": 20,
+          "included_in_statistics": false
+        },
+        {
+          "label": "50-tps",
+          "rate_tps": 50,
+          "duration_seconds": 120,
+          "role": "supporting"
+        },
+        {
+          "label": "200-tps",
+          "rate_tps": 200,
+          "duration_seconds": 120,
+          "role": "professor_selected_final_latency"
+        }
+      ],
+      "timing_clock": "process.hrtime.bigint()",
+      "timing_unit": "milliseconds",
+      "endorsement_timing_boundary": "immediately before proposal.endorse() until its promise resolves",
+      "commit_timing_scientific_name": "post_endorsement_submit_to_commit_status_ms",
+      "commit_timing_boundary": "immediately before transaction.submit(), after endorsement, until submittedTransaction.getStatus() resolves",
+      "commit_timing_includes": "client signing and RPC waiting, orderer submission/acknowledgement, block-cut or BatchTimeout wait, validation, ledger commit, and status delivery",
+      "commit_timing_excludes": "proposal construction, endorsement, and Caliper scheduling before connector invocation",
+      "instrumentation": "env/caliper/e1/patches/peer-gateway-e1-timing.patch",
+      "clean_common_profile": {
+        "status": "complete",
+        "fresh_ledger_start_height": 7,
+        "pq_verify_trace": 0,
+        "runs": {
+          "ECDSA": {
+            "namespace": "latency-common-clean-v1_ecdsa",
+            "log": "raw/e1/latency-common-clean-v1_ecdsa_caliper_run.log.gz",
+            "log_sha256": "a8c90b17fed6b64815bf5012354fd0406ca6d9a2fd450c5d212dc7a9ace6959d",
+            "heights": "raw/e1/latency-common-clean-v1_ecdsa_block_heights.csv.gz",
+            "heights_sha256": "c367f91bd9539e7e6f5327554da25ce27e0f8678401d831283efb8cedcaad2e9"
+          },
+          "ML-DSA-44": {
+            "namespace": "latency-common-clean-v1_ml-dsa-44",
+            "log": "raw/e1/latency-common-clean-v1_ml-dsa-44_caliper_run.log.gz",
+            "log_sha256": "0f414c578787baa0541d380764657558fb578b08e69f912860598dbc40a5d899",
+            "heights": "raw/e1/latency-common-clean-v1_ml-dsa-44_block_heights.csv.gz",
+            "heights_sha256": "61f62fe62f587ec3e362403eb7ec9801b8c521eec8a2e5e9541f21d657618daf"
+          },
+          "ML-DSA-65": {
+            "namespace": "latency-common-clean-v1_ml-dsa-65",
+            "log": "raw/e1/latency-common-clean-v1_ml-dsa-65_caliper_run.log.gz",
+            "log_sha256": "89b5bcd0e8140b2f351f580a59b20bc183c09b6bfcc245b905074cb9c251907e",
+            "heights": "raw/e1/latency-common-clean-v1_ml-dsa-65_block_heights.csv.gz",
+            "heights_sha256": "5b13f539967ba9b180b6ef79c3cebafd98bcab9864be0c350d1a27270b27ad4b"
+          },
+          "SPHINCS+-SHA2-128s-simple": {
+            "namespace": "latency-common-clean-v1_sphincs",
+            "log": "raw/e1/latency-common-clean-v1_sphincs_caliper_run.log.gz",
+            "log_sha256": "400eb7f7804ef52a1810b0b112559de5b14d864899a68032ebd81d38553b037c",
+            "heights": "raw/e1/latency-common-clean-v1_sphincs_block_heights.csv.gz",
+            "heights_sha256": "1bb3084114f2ab3a3f6fadc4b28f926d7e0aa7b71e4d2d50645340b0b59dc4ce"
+          }
+        }
+      },
+      "sustainability": {
+        "duration_seconds": 60,
+        "success_rate_minimum": 0.99,
+        "successful_throughput_definition": "success_count / 60",
+        "successful_throughput_fraction_of_offered_minimum": 0.95,
+        "latency_population": "successful end-to-end samples grouped by monotonic request-start offset",
+        "beginning_window_ms": "[0,12000)",
+        "ending_window_ms": "[48000,60000)",
+        "minimum_successful_samples_per_window": 5,
+        "latency_stability_rule": "ending-window p95 <= 2 * beginning-window p95",
+        "percentile_method": "linear interpolation using rank p*(n-1)",
+        "evaluator": "src/e1/analyze_timings.py --sustainability <run_namespace>"
+      },
+      "sphincs_low_rate_sweep": {
+        "profile_file": "env/caliper/e1/benchmark_sphincs_sweep.yaml",
+        "profile_sha256": "726401c382e08051cbaf6dd5820de28f1ebaa1e6c56eb1d8ce99889e1053d1be",
+        "rates_tps": [
+          1,
+          2,
+          5,
+          10,
+          20
+        ],
+        "duration_seconds_per_rate": 60,
+        "status": "complete",
+        "run_namespace": "sphincs-lowrate-v1_sphincs",
+        "run_log": "raw/e1/sphincs-lowrate-v1_sphincs_caliper_run.log.gz",
+        "run_log_sha256": "affc7bf4f8d71bcad4d9aa0a66375592792c3c4f68f4521417303b13d2aec342",
+        "transaction_evidence_20_tps": {
+          "raw_summary": "raw/e1/sphincs-lowrate-v1_sphincs_blocks_sphincs-20-tps_summary.csv.gz",
+          "raw_summary_sha256": "8fc34c40fd11f03a7fefc20c83863a9f17225cf58666d0f5a25496f023727e5d"
+        },
+        "boundary_22_tps_result": {
+          "namespace": "sphincs-boundary-22-v1_sphincs",
+          "sustainable": true
+        },
+        "boundary_23_tps_result": {
+          "namespace": "sphincs-boundary-23-v1_sphincs",
+          "sustainable": false
+        },
+        "integer_boundary_search": {
+          "status": "complete",
+          "highest_tested_sustainable_tps": 22,
+          "first_tested_nonsustainable_integer_tps": 23
+        }
+      },
+      "integer_sustainability_boundaries": {
+        "ecdsa_integer_boundary": {
+          "status": "complete",
+          "validated_probes": [
+            {
+              "offered_tps": 228,
+              "run_namespace": "sustained-228-v1_ecdsa",
+              "sustainable": true
+            },
+            {
+              "offered_tps": 229,
+              "run_namespace": "sustained-229-v1_ecdsa",
+              "sustainable": false
+            }
+          ],
+          "highest_sustainable_integer_tps": 228,
+          "highest_sustainable_run_namespace": "sustained-228-v1_ecdsa",
+          "first_failing_integer_tps": 229,
+          "first_failing_run_namespace": "sustained-229-v1_ecdsa",
+          "final_tps_sustained": 228
+        },
+        "ml_dsa_44_integer_boundary": {
+          "status": "complete",
+          "validated_probes": [
+            {
+              "offered_tps": 356,
+              "run_namespace": "sustained-356-v1_ml-dsa-44",
+              "sustainable": true
+            },
+            {
+              "offered_tps": 357,
+              "run_namespace": "sustained-357-v1_ml-dsa-44",
+              "sustainable": false
+            }
+          ],
+          "highest_sustainable_integer_tps": 356,
+          "highest_sustainable_run_namespace": "sustained-356-v1_ml-dsa-44",
+          "first_failing_integer_tps": 357,
+          "first_failing_run_namespace": "sustained-357-v1_ml-dsa-44",
+          "final_tps_sustained": 356
+        },
+        "ml_dsa_65_integer_boundary": {
+          "status": "complete",
+          "validated_probes": [
+            {
+              "offered_tps": 344,
+              "run_namespace": "sustained-344-v2_ml-dsa-65",
+              "sustainable": true
+            },
+            {
+              "offered_tps": 345,
+              "run_namespace": "sustained-345-v1_ml-dsa-65",
+              "sustainable": false
+            }
+          ],
+          "highest_sustainable_integer_tps": 344,
+          "highest_sustainable_run_namespace": "sustained-344-v2_ml-dsa-65",
+          "first_failing_integer_tps": 345,
+          "first_failing_run_namespace": "sustained-345-v1_ml-dsa-65",
+          "final_tps_sustained": 344
+        }
+      }
+    },
+    "block_utilisation": {
+      "definition": "mean(actual ordinary-transaction block bytes) / effective PreferredMaxBytes",
+      "population_rule": "exclude genesis, config, and other nonordinary blocks; exclude ordinary blocks cut prematurely by BatchTimeout; retain traffic-volume-filled ordinary blocks; retain a terminal ordinary partial block unless evidence establishes BatchTimeout closure",
+      "timeout_classification_method": "retain MaxMessageCount blocks or blocks proven size-filled by exact block-cutter accounting; exclude remaining underfilled timeout candidates",
+      "new_evidence_message_accounting": "direct len(common.Envelope.Payload) + len(common.Envelope.Signature) recorded per transaction as orderer_message_bytes",
+      "legacy_message_accounting_scope": "Only the retained sustained-200-v1_ml-dsa-44 and sustained-345-v1_ml-dsa-65 evidence predates orderer_message_bytes; those already-validated datasets retain their dataset-specific five-byte protobuf-framing reconstruction.",
+      "transaction_size_method": "decode each fetched block's Block.Data.Data[i] as the exact serialized common.Envelope; retain its length and embedded endorsement count",
+      "transaction_evidence_tool": "env/fabric/e1/measure_block_bytes.sh using src/e1/evidence/cmd/blockinspect",
+      "working_result": {
+        "config": "ECDSA",
+        "status": "final",
+        "namespace": "blockutil-300_ecdsa",
+        "block_interval": "17-48",
+        "ordinary_block_count": 32,
+        "excluded_block_count": 0,
+        "terminal_partial_included": true,
+        "closure": "blocks 17-47 reached MaxMessageCount=500; terminal block 48 contained 386 transactions",
+        "block_bytes_mean": "1952347.156250",
+        "effective_preferred_max_bytes": 2097152,
+        "block_utilisation": "0.930951670",
+        "summary_source": "raw/e1/blockutil-300_ecdsa_blocks_blockutil-300-tps_summary.csv.gz",
+        "summary_sha256": "34be17bc531a4a4530fc3817c301da674c1c00064e88ea8a72d274e6146d6367",
+        "raw_blocks_source": "raw/e1/blockutil-300_ecdsa_blocks_blockutil-300-tps.csv.gz",
+        "raw_blocks_sha256": "ca48b8c5ed503157e7ac1c863e7692584bd7c757beb006323d2557f9e37f22b6"
+      },
+      "ecdsa_transaction_evidence": {
+        "raw_summary": "raw/e1/tx-evidence-50-v1_ecdsa_blocks_50-tps_summary.csv.gz",
+        "ordinary_transaction_count": 6001,
+        "tx_bytes_mean": "3929.301450",
+        "endorsements_per_tx": "2.000000"
+      },
+      "ml_dsa_44_transaction_evidence": {
+        "raw_summary": "raw/e1/tx-evidence-50-v1_ml-dsa-44_blocks_50-tps_summary.csv.gz",
+        "ordinary_transaction_count": 6001,
+        "tx_bytes_mean": "12288.617897",
+        "endorsements_per_tx": "2.000000"
+      },
+      "ml_dsa_65_transaction_evidence": {
+        "raw_summary": "raw/e1/tx-evidence-50-v1_ml-dsa-65_blocks_50-tps_summary.csv.gz",
+        "ordinary_transaction_count": 6001,
+        "tx_bytes_mean": "15803.491918",
+        "endorsements_per_tx": "2.000000"
+      },
+      "volume_filtered_results": {
+        "ML-DSA-44": {
+          "status": "final",
+          "file_config": "ml-dsa-44",
+          "namespace": "sustained-200-v1_ml-dsa-44",
+          "run_label": "sustained-200-v1",
+          "benchmark_label": "sustained-200-tps",
+          "block_interval": "17-106",
+          "round_duration_seconds": 60,
+          "batch_timeout_seconds": 2,
+          "orderer_message_bytes_source": "legacy_envelope_minus_five_bytes",
+          "timeout_residual_upper_bound": 30,
+          "ordinary_block_count_total": 90,
+          "retained_volume_filled_block_count": 60,
+          "excluded_timeout_block_count": 30,
+          "volume_filled_transaction_counts": [
+            170
+          ],
+          "minimum_orderer_message_bytes": 12276,
+          "max_volume_block_remaining_capacity": 9128,
+          "min_timeout_residual_remaining_capacity": 1310883,
+          "block_bytes_mean": "2091602.116667",
+          "effective_preferred_max_bytes": 2097152,
+          "block_utilisation": "0.997353609",
+          "raw_summary": "raw/e1/sustained-200-v1_ml-dsa-44_blocks_sustained-200-tps_summary.csv.gz",
+          "raw_summary_sha256": "29d9c882d075aa25a2e5da20f32a628f8760a74a9f4bf94b84b309ecb7cab49d",
+          "raw_blocks": "raw/e1/sustained-200-v1_ml-dsa-44_blocks_sustained-200-tps.csv.gz",
+          "raw_blocks_sha256": "0600a235762027479a8b41ea330be0e52f773577cdea6a04cd1f008f6959dd45",
+          "raw_transactions": "raw/e1/sustained-200-v1_ml-dsa-44_transactions_sustained-200-tps.csv.gz",
+          "raw_transactions_sha256": "ea9a9e1accf934da14e1ce65cf570de1016adf3444b099d821a6afd421ee2f02"
+        },
+        "ML-DSA-65": {
+          "status": "final",
+          "file_config": "ml-dsa-65",
+          "namespace": "sustained-345-v1_ml-dsa-65",
+          "run_label": "sustained-345-v1",
+          "benchmark_label": "sustained-345-tps",
+          "block_interval": "17-177",
+          "round_duration_seconds": 60,
+          "batch_timeout_seconds": 2,
+          "orderer_message_bytes_source": "legacy_envelope_minus_five_bytes",
+          "timeout_residual_upper_bound": 30,
+          "ordinary_block_count_total": 161,
+          "retained_volume_filled_block_count": 131,
+          "excluded_timeout_block_count": 30,
+          "volume_filled_transaction_counts": [
+            132
+          ],
+          "minimum_orderer_message_bytes": 15784,
+          "max_volume_block_remaining_capacity": 12809,
+          "min_timeout_residual_remaining_capacity": 27424,
+          "block_bytes_mean": "2087381.732824",
+          "effective_preferred_max_bytes": 2097152,
+          "block_utilisation": "0.995341174",
+          "raw_summary": "raw/e1/sustained-345-v1_ml-dsa-65_blocks_sustained-345-tps_summary.csv.gz",
+          "raw_summary_sha256": "76eef37ba535749df2a72981cfaf1251839685a6c7e26461447d7e1ec9bd9246",
+          "raw_blocks": "raw/e1/sustained-345-v1_ml-dsa-65_blocks_sustained-345-tps.csv.gz",
+          "raw_blocks_sha256": "5cb3a0d6074bddc39a1a71b388acb9fcbd850ed30e0f941fcc41002222b3cfa5",
+          "raw_transactions": "raw/e1/sustained-345-v1_ml-dsa-65_transactions_sustained-345-tps.csv.gz",
+          "raw_transactions_sha256": "75e4fa179d2d8fb9297fb78cd7e4768a3e9803790e229b69152d102e061a9aee"
+        }
+      },
+      "sphincs_final_block_result": {
+        "SPHINCS+-SHA2-128s-simple": {
+          "status": "final_pooled_qualifying_ordinary_blocks",
+          "statistical_unit": "retained qualifying ordinary block",
+          "aggregation_rule": "Pool retained qualifying ordinary blocks across independent runs only when crypto configuration, Fabric parameters, workload/profile, offered rate, and block classification rule are identical.",
+          "contributing_run_namespaces": [
+            "blockutil-54-v1_sphincs",
+            "blockutil-54-v2_sphincs"
+          ],
+          "excluded_run_namespaces": [
+            "blockutil-60-v1_sphincs"
+          ],
+          "prior_timeout_driven_evidence": {
+            "namespace": "sphincs-lowrate-v1_sphincs",
+            "raw_summary": "raw/e1/sphincs-lowrate-v1_sphincs_blocks_sphincs-20-tps_summary.csv.gz",
+            "raw_summary_sha256": "8fc34c40fd11f03a7fefc20c83863a9f17225cf58666d0f5a25496f023727e5d"
+          },
+          "contributing_run_54_v1": {
+            "status": "qualifying_pool_contributor",
+            "file_config": "sphincs",
+            "namespace": "blockutil-54-v1_sphincs",
+            "run_label": "blockutil-54-v1",
+            "benchmark_label": "blockutil-54-tps",
+            "benchmark": "env/caliper/e1/benchmark_sphincs_blockutil_54.yaml",
+            "benchmark_sha256": "a2a785f7ca2304bd44ff76f17782c056bc85ef6d9a5a5d43c8a8d3c17066dc25",
+            "offered_tps": 54,
+            "block_interval": "15-44",
+            "round_duration_seconds": 60,
+            "batch_timeout_seconds": 2,
+            "orderer_message_bytes_source": "direct_common_envelope_payload_plus_signature",
+            "ordinary_block_count_total": 30,
+            "retained_volume_filled_block_count": 1,
+            "excluded_timeout_block_count": 29,
+            "ambiguous_block_count": 0,
+            "terminal_underfilled_candidate_count": 1,
+            "terminal_treatment": "The last ordinary block was underfilled and is excluded; no next observed message proves a size cut, so it is not silently retained as an end-of-run partial block.",
+            "nominal_timeout_period_count_reference": 30,
+            "timeout_corroboration": "The 29 underfilled candidates are near the nominal 30 two-second periods in the 60-second send window. This count is informational only, not a bound or classifier; per-block close timestamps are not retained and classification comes from exact block-cutter capacity accounting.",
+            "max_message_count_block_count": 0,
+            "volume_filled_transaction_counts": [
+              106
+            ],
+            "retained_blocks": [
+              {
+                "block_number": 43,
+                "transaction_count": 106,
+                "accumulated_orderer_message_bytes": 2089162,
+                "remaining_preferred_max_bytes_capacity": 7990,
+                "next_observed_orderer_message_bytes": 19710,
+                "fetched_block_bytes": 2091254
+              }
+            ],
+            "minimum_orderer_message_bytes": 19696,
+            "max_volume_block_remaining_capacity": 7990,
+            "min_timeout_residual_remaining_capacity": 934309,
+            "block_bytes_mean": "2091254.000000",
+            "effective_preferred_max_bytes": 2097152,
+            "block_utilisation": "0.997187614",
+            "raw_summary": "raw/e1/blockutil-54-v1_sphincs_blocks_blockutil-54-tps_summary.csv.gz",
+            "raw_summary_sha256": "5e295242e43246124a83bc63ba285c665051260c9845eb7a8dea6da05fa43cc7",
+            "raw_blocks": "raw/e1/blockutil-54-v1_sphincs_blocks_blockutil-54-tps.csv.gz",
+            "raw_blocks_sha256": "5bcb4a297b8c55ecf3f72e5f2404103410b9501711f00ac3cc8cf26ddc990769",
+            "raw_transactions": "raw/e1/blockutil-54-v1_sphincs_transactions_blockutil-54-tps.csv.gz",
+            "raw_transactions_sha256": "c9ad5e4727b588bce2d46c7fa9fb1614fa36cf3c81d66c55919d74ce91ebe595",
+            "block_heights": "raw/e1/blockutil-54-v1_sphincs_block_heights.csv.gz",
+            "block_heights_sha256": "d7038c06532d366c05d110ef6b51ccbfaae392415e8deaf50ef46c738305159f",
+            "run_log": "raw/e1/blockutil-54-v1_sphincs_caliper_run.log.gz",
+            "run_log_sha256": "86f3f8c568c7a0fd48d22b375ba614e5e4caef189021fe63b8b74c22c5250408",
+            "caliper_success": 537,
+            "caliper_fail": 2704,
+            "ledger_transaction_count": 756,
+            "interpretation": "One block is directly proven size-filled; 29 underfilled blocks are excluded. This qualifying block contributes to the pooled final SPHINCS statistic."
+          },
+          "contributing_run_54_v2": {
+            "status": "qualifying_pool_contributor",
+            "file_config": "sphincs",
+            "namespace": "blockutil-54-v2_sphincs",
+            "run_label": "blockutil-54-v2",
+            "benchmark_label": "blockutil-54-tps",
+            "benchmark": "env/caliper/e1/benchmark_sphincs_blockutil_54.yaml",
+            "benchmark_sha256": "a2a785f7ca2304bd44ff76f17782c056bc85ef6d9a5a5d43c8a8d3c17066dc25",
+            "offered_tps": 54,
+            "block_interval": "16-47",
+            "round_duration_seconds": 60,
+            "batch_timeout_seconds": 2,
+            "orderer_message_bytes_source": "direct_common_envelope_payload_plus_signature",
+            "ordinary_block_count_total": 32,
+            "retained_volume_filled_block_count": 1,
+            "excluded_timeout_block_count": 31,
+            "ambiguous_block_count": 0,
+            "terminal_underfilled_candidate_count": 1,
+            "terminal_treatment": "The last ordinary block was underfilled and is excluded because no direct evidence establishes a size cut.",
+            "nominal_timeout_period_count_reference": 30,
+            "timeout_corroboration": "The nominal send window does not bound ledger drain time; the Caliper round drained outstanding work for 76.639 seconds. Candidate count is informational only and classification comes from exact non-fill evidence.",
+            "max_message_count_block_count": 0,
+            "volume_filled_transaction_counts": [
+              106
+            ],
+            "retained_blocks": [
+              {
+                "block_number": 46,
+                "transaction_count": 106,
+                "accumulated_orderer_message_bytes": 2089610,
+                "remaining_preferred_max_bytes_capacity": 7542,
+                "next_observed_orderer_message_bytes": 19714,
+                "fetched_block_bytes": 2091698
+              }
+            ],
+            "minimum_orderer_message_bytes": 19696,
+            "max_volume_block_remaining_capacity": 7542,
+            "min_timeout_residual_remaining_capacity": 461304,
+            "block_bytes_mean": "2091698.000000",
+            "effective_preferred_max_bytes": 2097152,
+            "block_utilisation": "0.997399330",
+            "raw_summary": "raw/e1/blockutil-54-v2_sphincs_blocks_blockutil-54-tps_summary.csv.gz",
+            "raw_summary_sha256": "2713264bc905f5e238da38264bb0d2dc3944794afdb33b003acccbdcece0d65f",
+            "raw_blocks": "raw/e1/blockutil-54-v2_sphincs_blocks_blockutil-54-tps.csv.gz",
+            "raw_blocks_sha256": "dbc65df5c305a91ed837a06696ccfc8d61ecd155e9abef2acdfa10e1341d53ed",
+            "raw_transactions": "raw/e1/blockutil-54-v2_sphincs_transactions_blockutil-54-tps.csv.gz",
+            "raw_transactions_sha256": "2f7eaecaaf8fa68340fdb337ab01b5cef8fc438adddd3ee13a90e5dd0754892f",
+            "block_heights": "raw/e1/blockutil-54-v2_sphincs_block_heights.csv.gz",
+            "block_heights_sha256": "0690f445008ab431a3bb28feb67773afbc6cf149ccbbe94cd2885cae97c84a53",
+            "run_log": "raw/e1/blockutil-54-v2_sphincs_caliper_run.log.gz",
+            "run_log_sha256": "6f480fbc68b3a889befa0961c40eee4df7b8a525866cfeacd89401b79955d54b",
+            "caliper_success": 768,
+            "caliper_fail": 2473,
+            "ledger_transaction_count": 945,
+            "interpretation": "One block is directly proven size-filled; 31 underfilled blocks are excluded. This qualifying block contributes to the pooled final SPHINCS statistic."
+          },
+          "diagnostic_no_retained_population_evidence": {
+            "status": "insufficient_diagnostic_no_volume_filled_population",
+            "file_config": "sphincs",
+            "namespace": "blockutil-60-v1_sphincs",
+            "run_label": "blockutil-60-v1",
+            "benchmark_label": "blockutil-60-tps",
+            "benchmark": "env/caliper/e1/benchmark_sphincs_blockutil_60.yaml",
+            "benchmark_sha256": "5e6ba1ae03904b02bba6bd532e1240fe9d2252965a44acf4f238391e0002e21c",
+            "offered_tps": 60,
+            "block_interval": "15-38",
+            "round_duration_seconds": 60,
+            "batch_timeout_seconds": 2,
+            "orderer_message_bytes_source": "direct_common_envelope_payload_plus_signature",
+            "ordinary_block_count_total": 24,
+            "ledger_transaction_count": 524,
+            "retained_volume_filled_block_count": 0,
+            "excluded_timeout_block_count": 24,
+            "ambiguous_block_count": 0,
+            "terminal_underfilled_candidate_count": 1,
+            "max_message_count_block_count": 0,
+            "all_block_diagnostic_summary": {
+              "block_bytes_mean": "431483.708333",
+              "block_utilisation": "0.205747465",
+              "status": "not_professor_defined_final; retained volume-filled population is empty"
+            },
+            "raw_summary": "raw/e1/blockutil-60-v1_sphincs_blocks_blockutil-60-tps_summary.csv.gz",
+            "raw_summary_sha256": "63d64888e565f0e1bdc06b46fcc72f006a5889b2189b0ca8cb2d90156619d8d2",
+            "raw_blocks": "raw/e1/blockutil-60-v1_sphincs_blocks_blockutil-60-tps.csv.gz",
+            "raw_blocks_sha256": "bc1f2f5e74fe6553d9469d7aeecaf5175e2c2d5d648e5221fce06f51f86666bf",
+            "raw_transactions": "raw/e1/blockutil-60-v1_sphincs_transactions_blockutil-60-tps.csv.gz",
+            "raw_transactions_sha256": "341d5fc3e176dafc7b9357d403a7d512d99209d25e62a3a6fadf99ac008356c9",
+            "block_heights": "raw/e1/blockutil-60-v1_sphincs_block_heights.csv.gz",
+            "block_heights_sha256": "47e408533062e4bf886f3c0b31d1be8f369c16554fdb9e955852ca63fa226783",
+            "run_log": "raw/e1/blockutil-60-v1_sphincs_caliper_run.log.gz",
+            "run_log_sha256": "a84effbabff2c09c70e621807b135da6e491d656875e95cc5c53e53cf061ccc8",
+            "caliper_success": 311,
+            "caliper_fail": 3290,
+            "interpretation": "No ordinary block reached MaxMessageCount or satisfied the exact size-fill rule. All-block summary values include underfilled candidates and cannot populate final SPHINCS block fields."
+          },
+          "cross_diagnostic_interpretation": {
+            "ledger_transaction_change_54_to_60": "756 to 524",
+            "retained_size_filled_block_change_54_to_60": "1 to 0",
+            "conclusion": "Increasing offered load worsened saturation; the 60-TPS run contributes no retained block to the final statistic."
+          },
+          "final_result": {
+            "retained_block_count": 2,
+            "retained_block_bytes": [
+              2091254,
+              2091698
+            ],
+            "block_bytes_mean": "2091476.000000",
+            "effective_preferred_max_bytes": 2097152,
+            "block_utilisation": "0.997293472",
+            "max_message_count_block_count": 0,
+            "excluded_population": "All underfilled timeout candidates, including terminal underfilled candidates, are excluded.",
+            "limitation": "The final statistic is based on only two qualifying blocks from two independent identical 54-TPS runs and is not a large-sample estimate."
+          }
+        }
+      }
+    },
+    "raw_evidence_freeze": {
+      "status": "frozen_deterministic_gzip",
+      "manifest": "raw/e1/evidence_manifest.json",
+      "manifest_sha256": "9cc53cb3c5547d7b07908f54924bf33a5627b4956638a58e54ff164c9dbb389c",
+      "source_file_count": 156,
+      "compression": {
+        "format": "gzip",
+        "level": 9,
+        "deterministic_header": true,
+        "command": "gzip -9 -n"
+      },
+      "hash_semantics": {
+        "original_sha256": "SHA-256 of decompressed/original bytes",
+        "compressed_sha256": "SHA-256 of tracked gzip bytes"
+      }
+    },
+    "data_provenance": {
+      "supporting_signcert_evidence": {
+        "status": "supporting only; not identity_bytes",
+        "measurements": {
+          "ECDSA": {
+            "file_config": "ecdsa",
+            "run_label": "blockutil-300",
+            "source": "raw/e1/blockutil-300_ecdsa_identity_bytes.csv.gz",
+            "sha256": "56f0918649e7cac601830e0fb417913df50a6ee7172607c4fab9b4bfdabc8f2d"
+          },
+          "ML-DSA-44": {
+            "file_config": "ml-dsa-44",
+            "run_label": "identity-only-v1",
+            "source": "raw/e1/identity-only-v1_ml-dsa-44_identity_bytes.csv.gz",
+            "sha256": "47c46478f0b656421f8fdb1b8bcdbd74b220604d0c368d84e2d2410306ad37e1",
+            "generation_log": "raw/e1/identity-only-v1_ml-dsa-44_identity_generation.log.gz",
+            "generation_log_sha256": "66ce1a4e4cac4be2b39050a3f133faed0d46955e9dd2c695dc85659d83c157ca"
+          },
+          "ML-DSA-65": {
+            "file_config": "ml-dsa-65",
+            "run_label": "identity-only-v1",
+            "source": "raw/e1/identity-only-v1_ml-dsa-65_identity_bytes.csv.gz",
+            "sha256": "c917695f589a9cad5f86e61193a18c6c2bfc909c3a2a1ecbcf897e3337b0184a",
+            "generation_log": "raw/e1/identity-only-v1_ml-dsa-65_identity_generation.log.gz",
+            "generation_log_sha256": "b291d91883851a4f257611f5e1e277d979f9d2e9952b09d43a9b9cca1083e347"
+          },
+          "SLH-DSA": {
+            "file_config": "sphincs",
+            "run_label": "identity-only-v1",
+            "source": "raw/e1/identity-only-v1_sphincs_identity_bytes.csv.gz",
+            "sha256": "87bde54b4839d5c445328d9a1eb17f65da27f094afb9f164cb5984719580bc70",
+            "generation_log": "raw/e1/identity-only-v1_sphincs_identity_generation.log.gz",
+            "generation_log_sha256": "ebe8a11a5e8406adeae0b042c2ed28397fc8107507fd5494226fddc2bcda5366"
+          }
+        }
+      },
+      "final_output_schema": [
+        "config",
+        "identity_bytes",
+        "endorse_median_ms",
+        "endorse_p95_ms",
+        "commit_median_ms",
+        "tps_sustained",
+        "tx_success_rate",
+        "tx_error_rate",
+        "tx_bytes_mean",
+        "endorsements_per_tx",
+        "block_bytes_mean",
+        "block_utilisation"
+      ],
+      "final_summary": "data/e1_fabric.csv",
+      "final_summary_sha256": "c0d595fdf9eaf24b33692659079bc35d106a19265a0d24d0312bb2e4f278b71a",
+      "final_summary_generator": "src/e1/analyze_timings.py --final-e1",
+      "sphincs_latency_fields": "empty because the professor-selected 200-TPS common-profile population saturated and is not a valid normal-latency population; tx_success_rate and tx_error_rate remain reported"
+    }
+  },
+  "e2_benchmark": {
+    "status": "complete",
+    "output": {
+      "path": "data/e2_statemachine.csv",
+      "sha256": "0b6c9139ff5973f08373060e68c309d4d3d57d19b3ecfcc0f917eb94e2b882dd"
+    },
+    "final_measurement_commit": "43b863e88b7bf0ba3da2a4dfa654d9f4e2b4ed37",
+    "final_output_commit": "f097d1c9be344f3e546cee68676c48156d11587c",
+    "configs": [
+      "classical",
+      "uniform_mldsa",
+      "layer_aware"
+    ],
+    "transitions": [
+      "channel_setup",
+      "commitment_update",
+      "htlc_add",
+      "htlc_settle",
+      "funding",
+      "coop_close",
+      "force_close",
+      "penalty"
+    ],
+    "condition_count": 24,
+    "warmup_iterations_per_condition": 100,
+    "measured_iterations_per_condition": 1000,
+    "percentile_method": "linear interpolation using rank p*(n-1)",
+    "topology": {
+      "emulator": "Mininet 2.3.0",
+      "hosts": 2,
+      "path": "A <-> B over one direct TCLink",
+      "target_rtt_ms": 20,
+      "one_way_link_delay_ms": 10,
+      "ping_samples_per_condition": 20,
+      "ping_gate": "absolute median RTT deviation from 20 ms is strictly less than 10%"
+    },
+    "rtt_timing": {
+      "start": "immediately before A sends the already-signed, already-serialized canonical transaction over an established persistent TCP connection",
+      "stop": "after A fully receives and validates B's success ACK",
+      "includes": "network transfer, transport receive/framing, verification of every included signature at B, and ACK return",
+      "excludes": "key generation, signing, transaction construction, serialization, and TCP connection setup",
+      "message_bytes_excludes": "transport framing and ACK bytes"
+    },
+    "cpu_control": {
+      "cpu_model": "AMD Ryzen 7 7735HS with Radeon Graphics",
+      "online_logical_cpus": 16,
+      "process_affinity": "2,4,6,8,10,12,14",
+      "scaling_driver": "amd-pstate-epp",
+      "governor": "performance",
+      "energy_performance_preference": "performance",
+      "boost_enabled": false,
+      "scaling_min_freq_khz": 3200000,
+      "scaling_max_freq_khz": 3200000,
+      "power_source": "AC"
+    },
+    "algorithms": {
+      "classical": "Ed25519; one 64-byte signature and one 32-byte public key as the representative compact MuSig2-aggregated size case, not a MuSig2 execution",
+      "uniform_mldsa": "ML-DSA-65 without aggregation",
+      "layer_aware_channel_transitions": "Falcon-padded-512 for channel_setup, commitment_update, htlc_add, and htlc_settle",
+      "layer_aware_l1_transitions": "ML-DSA-65 for funding, coop_close, force_close, and penalty",
+      "software_pin_references": [
+        "software_pins.liboqs",
+        "software_pins.liboqs_go"
+      ]
+    },
+    "canonical_serialization": {
+      "format": "e2-canonical-binary-v1",
+      "byte_order": "big-endian",
+      "varints": false,
+      "semantic_body_bytes": 114,
+      "t0_bytes": 126,
+      "crypto_length_prefix": "uint16 big-endian",
+      "message_bytes_definition": "len(actual canonical serialized transaction bytes)"
+    },
+    "penalty_provenance": "The penalty transition is produced by a real state-machine execution in which state 2 revokes state 1, a party force-closes stale state 1, and the counterparty cryptographically authorizes the punishment transaction.",
+    "environment": {
+      "go": "go version go1.22.2 linux/amd64",
+      "kernel": "7.0.0-31-generic",
+      "python": "3.12.3",
+      "mininet": "2.3.0",
+      "tc": "tc utility, iproute2-6.1.0, libbpf 1.3.0"
+    },
+    "raw_evidence": {
+      "directory": "raw/e2",
+      "manifest": "raw/e2/evidence_manifest.json",
+      "manifest_sha256": "d0528c80aeb1ece12d6cb38e50944cfbb04689b651d9de7470e5e452362590d6",
+      "source_file_count": 72,
+      "compression": "deterministic gzip -9 -n",
+      "hash_semantics": "original_sha256 identifies decompressed scientific bytes; tracked_sha256 identifies the gzip container"
+    },
+    "finalizer": "src/e2/finalize_e2.py"
+  },
+  "e5_benchmark": {
+    "status": "complete",
+    "output": {
+      "path": "data/e5_watchtower.csv",
+      "sha256": "eea355feeb9f69f8fd22dab70bf234fe46d6cf6447db6975fb92c1bf260af280"
+    },
+    "final_measurement_commit": "34c0a39b4673aae5aa4975b2687a6d147aa41298",
+    "config": "layer_aware",
+    "state_counts": [
+      10,
+      100,
+      1000,
+      10000,
+      100000
+    ],
+    "warmup_iterations_per_condition": 100,
+    "measured_iterations_per_condition": 1000,
+    "percentile_method": "linear interpolation using rank p*(n-1); final scan_cpu_ms is the median",
+    "scan": {
+      "definition": "deterministic sequential worst-case identifier scan to final state",
+      "nonmatching_payload_treatment": "skip fixed payload by memory offset without parsing",
+      "cache_policy": "mmap prefault plus discarded warm-up scans",
+      "timer": "Linux CLOCK_PROCESS_CPUTIME_ID user plus system process CPU",
+      "timed_region": "identifier scan and matching payload copy only"
+    },
+    "cpu_control": {
+      "cpu_model": "AMD Ryzen 7 7735HS with Radeon Graphics",
+      "process_affinity": "2,4,6,8,10,12,14",
+      "scaling_driver": "amd-pstate-epp",
+      "governor": "performance",
+      "energy_performance_preference": "performance",
+      "boost_enabled": false,
+      "scaling_min_freq_khz": 3200000,
+      "scaling_max_freq_khz": 3200000,
+      "power_source": "AC"
+    },
+    "blob": {
+      "source": "real E2 layer_aware penalty transition",
+      "bytes": 5387,
+      "software_pin_references": [
+        "software_pins.liboqs",
+        "software_pins.liboqs_go"
+      ]
+    },
+    "record_layout": "uint64-big-endian state_id || unchanged E2 penalty blob",
+    "total_bytes_definition": "actual os.Stat size after streaming physical generation, flush, fsync, and close",
+    "artifact_retention": "Synthetic .bin artifacts were hashed and fully validated during collection, then omitted from Git; measured sizes, hashes, and validation receipts remain in condition manifests.",
+    "raw_evidence": {
+      "directory": "raw/e5",
+      "manifest": "raw/e5/evidence_manifest.json",
+      "manifest_sha256": "f4b9ce259e7cf4e8e87baae43baab009b654e20b58d5056a8965c574b5cc5bee",
+      "source_file_count": 10,
+      "compression": "deterministic gzip -9 -n",
+      "hash_semantics": "original_sha256 identifies decompressed scientific bytes; tracked_sha256 identifies the gzip container"
+    },
+    "finalizer": "src/e5/finalize_e5.py",
+    "final_rows": [
+      {
+        "n_states": 10,
+        "blob_bytes_median": 5387,
+        "total_bytes": 53950,
+        "scan_cpu_ms": "0.002104000"
+      },
+      {
+        "n_states": 100,
+        "blob_bytes_median": 5387,
+        "total_bytes": 539500,
+        "scan_cpu_ms": "0.001693000"
+      },
+      {
+        "n_states": 1000,
+        "blob_bytes_median": 5387,
+        "total_bytes": 5395000,
+        "scan_cpu_ms": "0.002785000"
+      },
+      {
+        "n_states": 10000,
+        "blob_bytes_median": 5387,
+        "total_bytes": 53950000,
+        "scan_cpu_ms": "0.026449000"
+      },
+      {
+        "n_states": 100000,
+        "blob_bytes_median": 5387,
+        "total_bytes": 539500000,
+        "scan_cpu_ms": "0.250582500"
+      }
+    ]
+  },
+  "e6_benchmark": {
+    "status": "complete",
+    "output": {
+      "path": "data/e6_aggregation.csv",
+      "sha256": "266439b8be7f124e7966a8bd79734df677f621bb397ddd3fca8fa1087d26b470",
+      "schema": [
+        "scheme",
+        "aggregated",
+        "k_sig",
+        "k_pk",
+        "tx_bytes"
+      ],
+      "data_row_count": 2
+    },
+    "source": {
+      "experiment": "E2",
+      "path": "data/e2_statemachine.csv",
+      "sha256": "0b6c9139ff5973f08373060e68c309d4d3d57d19b3ecfcc0f917eb94e2b882dd",
+      "transition": "funding",
+      "configurations": [
+        "classical",
+        "uniform_mldsa"
+      ]
+    },
+    "finalizer": "src/e6/finalize_e6.py",
+    "test": "src/e6/test_finalize_e6.py",
+    "deterministic_ablation": true,
+    "timing_measurement": false,
+    "rows": {
+      "classical": {
+        "scheme": "classical",
+        "aggregated": true,
+        "k_sig": 1,
+        "k_pk": 1,
+        "tx_bytes": 222,
+        "representation": "one 64-byte Ed25519 signature and one 32-byte public key as the representative compact aggregated 2-of-2 size case; not a MuSig2 execution"
+      },
+      "ML-DSA-65": {
+        "scheme": "ML-DSA-65",
+        "aggregated": false,
+        "k_sig": 2,
+        "k_pk": 2,
+        "tx_bytes": 10648,
+        "signature_bytes_each": 3309,
+        "public_key_bytes_each": 1952,
+        "representation": "two independent ML-DSA-65 signatures and two independent ML-DSA-65 public keys"
+      }
+    },
+    "canonical_serialization": {
+      "semantic_body_bytes": 114,
+      "fixed_crypto_framing_bytes": 12,
+      "t0_bytes": 126,
+      "classical_accounting": "126 + 64 + 32 = 222",
+      "mldsa65_accounting": "126 + 2*3309 + 2*1952 = 10648"
+    },
+    "provenance": {
+      "derivation": "reuse authoritative E2 serialized funding message_bytes; no second serializer",
+      "fail_closed": "verify immutable E2 SHA-256 and exact schema; require exactly one funding row per source configuration; require positive integer message_bytes equal to 222 and 10648; validate exact E6 schema, values, and order",
+      "musig2_execution": false,
+      "classical_caveat": "Ed25519 represents the compact aggregated-size case only and is not claimed to perform MuSig2"
+    }
+  },
+  "e7_benchmark": {
+    "status": "complete",
+    "settlement_measurement_commit": "0a6d20cf06d8e452b0d9bbd85922baff058cdca0",
+    "funding_measurement_commit": "839f056966a6360466ba655f64a7e07b6a02fafc",
+    "final_results_commit": "6f69861ceb6d418a9f1e59a3a9fbeb58f6757576",
+    "output": {
+      "path": "data/e7_endtoend.csv",
+      "sha256": "000a89eb0923a4f52ebc64e7e38c79696afe8c90809aa8d55435b83c25d49704",
+      "schema": [
+        "config",
+        "run_id",
+        "sample_idx",
+        "latency_ms",
+        "amortized_setup_ms"
+      ],
+      "data_row_count": 4000
+    },
+    "configurations": [
+      "l1_only",
+      "sets_reimpl",
+      "classical_l2",
+      "layer_aware_l2"
+    ],
+    "run_id": 1,
+    "population": {
+      "warmup_rows_per_configuration": 100,
+      "warmup_rows_total": 400,
+      "measured_rows_per_configuration": 1000,
+      "measured_rows_total": 4000,
+      "execution": "sequential with one settlement in flight; logical state is continuous across warm-up and measured rows",
+      "sample_idx": "0..999 maps to frozen trace rows 100..1099"
+    },
+    "trace": {
+      "path": "env/e7/trace/opsd_household_15min_e7.csv",
+      "sha256": "7e472c032317a7e8f0af587782238cab48f22ddc50f74200cff65e9681f8bd1c",
+      "provenance_path": "env/e7/trace/provenance.json",
+      "provenance_sha256": "3f1e5933b0789d722b01f8593d673488e14b54d35fec335762185ef24f2e4eec",
+      "settlement_interval_minutes": 15,
+      "replay_waits_wall_clock_interval": false
+    },
+    "settlement_measurement": {
+      "manifest_schema": "pqc-energy-trading.e7-run-manifest.v1",
+      "timer": "Go monotonic time immediately before executor.Settle through successful completion return",
+      "on_chain_completion": "l1_only and sets_reimpl stop only after committed and VALID Fabric status plus logical-state finalization",
+      "layer_2_completion": "classical_l2 and layer_aware_l2 stop after local E2 HTLC_ADD and HTLC_SETTLE, receiver verification, persistent-TCP acknowledgements, and logical-state finalization; this is not Fabric finality",
+      "included": "per-sample logical validation/reservation; applicable signing, serialization, and verification; submission or ADD/SETTLE transport; completion confirmation; logical finalization",
+      "excluded": "trace loading, run-level key generation, Fabric setup/deployment and Gateway connection, E2 channel setup/funding, TCP connection creation, and evidence-file opening"
+    },
+    "cryptography": {
+      "l1_only": "Fabric ml-dsa-65 identity mode with ML-DSA-65 peer transaction/endorsement semantics",
+      "sets_reimpl": "our limited SETS reimplementation using application ECDSA-P256-SHA256 and an ECDSA Fabric network; not the original authors' implementation",
+      "classical_l2": "real Ed25519 E2 operations as the representative compact classical-size proxy; not a MuSig2 implementation",
+      "layer_aware_l2": "real Falcon-padded-512 E2 operations for steady-state HTLC_ADD and HTLC_SETTLE"
+    },
+    "logical_state": {
+      "initial_balance": "trace-derived minimum initial prosumer balance 104.346 kWh-credit; counterparty balance 0",
+      "e2_limitation": "Frozen E2 has no explicit amount-bearing HTLC or mutable channel balance; E7 maintains exact-rational amount state and binds exact trade terms through the signed deterministic HTLC ID hash."
+    },
+    "scientific_controls": {
+      "cpu_model": "AMD Ryzen 7 7735HS with Radeon Graphics",
+      "process_affinity": "2,4,6,8,10,12,14",
+      "scaling_driver": "amd-pstate-epp",
+      "governor": "performance",
+      "energy_performance_preference": "performance",
+      "boost_enabled": false,
+      "scaling_min_freq_khz": 3200000,
+      "scaling_max_freq_khz": 3200000,
+      "power_source": "AC",
+      "fabric_cpu_isolation": "For on-chain settlement and funding runs, the orderer, all four peers, running simplekv chaincode containers, and peer chaincode-launch policy were verified at the exact CPU set 2,4,6,8,10,12,14 before measurement."
+    },
+    "software_observed": {
+      "go": "go1.22.2",
+      "python": "3.12.3",
+      "fabric": "2.5.16 for on-chain settlement and supplemental funding",
+      "fabric_gateway_go": "1.7.1",
+      "liboqs": "0.15.0 for L2 and post-quantum funding paths",
+      "liboqs_go": "v0.15.0 for L2 and post-quantum funding paths"
+    },
+    "supplemental_funding": {
+      "manifest_schema": "pqc-energy-trading.e7-funding-evidence.v2",
+      "transaction_audit_schema": "pqc-energy-trading.e7-funding-transaction-audit.v1",
+      "method": "one real committed energychannel/simplekv.Set funding commitment per L2 configuration, with no automatic retry and independent ledger readback and transaction/block/signature audit",
+      "gateway_client_algorithm": "ECDSA-P256-SHA256",
+      "timer": {
+        "start": "Linux CLOCK_MONOTONIC immediately before Fabric Gateway simplekv.Set submission",
+        "stop": "immediately after successful committed VALID commit-status return",
+        "includes": "Gateway submission, peer endorsement, ordering, validation, ledger commit, and commit-status confirmation",
+        "excludes": "Fabric/network setup, chaincode deployment, key generation, Gateway connection, payload preparation, independent post-commit readback/block/signature audit, and teardown"
+      },
+      "measurements": {
+        "classical_l2": {
+          "fabric_network_mode": "ecdsa",
+          "peer_endorsement_algorithm": "ECDSA-P256-SHA256",
+          "duration_ns": 2023056144,
+          "transaction_id": "a931ab3092622bf0922c5503de8aa9bafeca26362cba6763ef789d9645a5de7f",
+          "amortized_setup_ms": "2.023056144"
+        },
+        "layer_aware_l2": {
+          "fabric_network_mode": "ml-dsa-65",
+          "peer_endorsement_algorithm": "ML-DSA-65-SHA256",
+          "duration_ns": 2026076261,
+          "transaction_id": "01802db50c3c1b247e15a346d83ecdc6df95e383ff083c92f8f01c94589602db",
+          "amortized_setup_ms": "2.026076261"
+        }
+      },
+      "amortization": {
+        "formula": "funding_duration_ns / 1000000000",
+        "denominator_measured_settlements": 1000,
+        "warmup_rows_excluded": 100,
+        "l1_only_ms": "0.000000000",
+        "sets_reimpl_ms": "0.000000000",
+        "original_latency_ms_preserved": true,
+        "funding_cost_added_to_latency_ms": false
+      },
+      "limitation": "The committed simplekv.Set is a deterministic funding commitment, not enforceable escrow or actual on-chain asset locking."
+    },
+    "raw_evidence": {
+      "directory": "raw/e7",
+      "manifest": "raw/e7/evidence_manifest.json",
+      "manifest_sha256": "f9ad57311cf48874f4f19811036d05f0ecc059e7fa497dd2f3f7de5a5ebe75e9",
+      "frozen_manifest_schema": "pqc-energy-trading.raw-e7-evidence-manifest.v1",
+      "settlement_source_file_count": 16,
+      "funding_source_file_count": 12,
+      "source_file_count": 28,
+      "frozen_total_file_count": 29,
+      "compression": "LC_ALL=C gzip -9 -n",
+      "hash_semantics": "original_sha256 identifies decompressed scientific bytes; tracked_sha256 identifies the gzip container"
+    },
+    "finalizer": "src/e7/finalize_e7.py",
+    "freezer": "src/e7/freeze_e7.py"
+  },
+  "e9_benchmark": {
+    "status": "complete",
+    "output": {
+      "path": "data/e9_network.csv",
+      "sha256": "1fb12f054242b1e05160858f856c617c5fc808d05bd7706202887f60ada370d5",
+      "data_row_count": 60,
+      "line_count_including_header": 61,
+      "schema": [
+        "config",
+        "rtt_ms",
+        "hops",
+        "completion_median_ms",
+        "completion_p95_ms",
+        "n_iter"
+      ]
+    },
+    "final_measurement_commit": "0e514a9bc563129912cf1d189024cf988a9091a2",
+    "configs": [
+      "classical",
+      "uniform_mldsa",
+      "layer_aware"
+    ],
+    "rtt_ms_per_payment_channel": [
+      5,
+      20,
+      50,
+      100
+    ],
+    "hops_payment_channel_count": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "condition_count": 60,
+    "warmup_iterations_per_condition": 100,
+    "measured_iterations_per_condition": 1000,
+    "ping_samples_per_condition": 20,
+    "percentile_method": "linear interpolation using rank p*(n-1)",
+    "topology": {
+      "emulator": "Mininet 2.3.0",
+      "shape": "linear payment-channel host path with no Mininet switches",
+      "hops_definition": "number of payment-channel links",
+      "logical_rtt_definition": "configured RTT per payment-channel link; expected full-path RTT is configured_per_channel_rtt_ms * hops"
+    },
+    "calibration": {
+      "per_channel_rtt_compensation_ms": 0.75,
+      "purpose": "host/testbed compensation for systematic Mininet/Linux processing overhead; not part of logical RTT",
+      "effective_one_way_tc_delay_formula": "(configured_per_channel_rtt_ms - 0.75) / 2",
+      "effective_one_way_tc_delay_ms": {
+        "5": 2.125,
+        "20": 9.625,
+        "50": 24.625,
+        "100": 49.625
+      }
+    },
+    "ping_gate": {
+      "scope": "official retained full-path ping before every scientific condition",
+      "statistic": "median of 20 samples using the registered percentile method",
+      "expected_rtt_ms": "configured_per_channel_rtt_ms * hops",
+      "rule": "absolute deviation is strictly less than 10%; exactly 10.0% fails",
+      "final_conditions_passed": 60
+    },
+    "completion_timing": {
+      "operation": "complete HTLC_ADD forward traversal followed by HTLC_SETTLE return traversal",
+      "start": "immediately before the sender writes the prepared HTLC_ADD frame",
+      "stop": "immediately after the sender receives the complete returned HTLC_SETTLE frame",
+      "connection_setup": "excluded; persistent TCP_NODELAY neighbor connections are established before timing",
+      "samples_pipelined": false,
+      "transport_framing": "uint8 message type plus uint32 big-endian payload length; transport-only and not part of E2 serialization"
+    },
+    "prepared_message_bytes": {
+      "classical": 222,
+      "uniform_mldsa": 10648,
+      "layer_aware": 3252,
+      "source": "authoritative E2 serialized HTLC_ADD/HTLC_SETTLE sizes",
+      "interpretation": "deterministic inert prepared buffers for network-size measurement; not independently valid cryptographic transactions"
+    },
+    "timed_crypto": {
+      "signing": false,
+      "verification": false,
+      "key_generation": false,
+      "serialization": false
+    },
+    "cpu_control": {
+      "cpu_model": "AMD Ryzen 7 7735HS with Radeon Graphics",
+      "process_affinity": "2,4,6,8,10,12,14",
+      "scaling_driver": "amd-pstate-epp",
+      "governor": "performance",
+      "energy_performance_preference": "performance",
+      "boost_enabled": false,
+      "scaling_min_freq_khz": 3200000,
+      "scaling_max_freq_khz": 3200000,
+      "power_source": "AC"
+    },
+    "software_observed": {
+      "mininet": "2.3.0",
+      "python": "3.12.3",
+      "tc": "tc utility, iproute2-6.1.0, libbpf 1.3.0",
+      "kernel": "7.0.0-31-generic"
+    },
+    "raw_evidence": {
+      "directory": "raw/e9",
+      "manifest": "raw/e9/evidence_manifest.json",
+      "manifest_sha256": "27ce1a7964f5c6852732bbdf84f2baa0f297d6e78b387061c89a74b750b0a53f",
+      "source_file_count": 180,
+      "frozen_total_file_count": 181,
+      "compression": "LC_ALL=C gzip -9 -n",
+      "condition_schema": "pqc-energy-trading.e9-condition-evidence.v4",
+      "frozen_manifest_schema": "pqc-energy-trading.raw-e9-evidence-manifest.v1",
+      "hash_semantics": "original_sha256 identifies decompressed scientific bytes; tracked_sha256 identifies the gzip container"
+    },
+    "finalizer": "src/e9/finalize_e9.py",
+    "freezer": "src/e9/freeze_e9.py",
+    "p99_policy": "completion p99 is independently recomputed and retained internally/evidence-side for audit but intentionally omitted from the professor CSV"
+  },
+  "notes": {
+    "falcon_liboqs_caveat": "Falcon-512 and Falcon-padded-512 in liboqs 0.15.0 are round-3 implementations, not final FIPS 206.",
+    "make_figures_gap": "The student specification references a supplied make_figures.py sanity checker, but its source and plausible bands are absent."
+  }
+}
